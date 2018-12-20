@@ -29,4 +29,3 @@ if __name__ == "__main__":
 	show_me(result)
 
 # print(ctypes.windll.shell32.IsUserAnAdmin())
-# print(show_me)
