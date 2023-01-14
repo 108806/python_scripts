@@ -1,3 +1,4 @@
+# Sample IBAN account numbers.
 #-----------------------------
 # BE31435411161155
 # CH5108686001256515001
@@ -42,7 +43,7 @@ country_dic={"AL":[28,"Albania"],
              "ME":[22,"Montenegro"],
              "NL":[18,"Netherlands"],
              "NO":[15,"Northern Ireland"],
-             "PO":[28,"Poland"],
+             "PL":[28,"Poland"],
              "PT":[25,"Portugal"],
              "RO":[24,"Romania"],
              "SM":[27,"San Marino"],
@@ -62,11 +63,21 @@ def iban_check(IBAN:int):
     IBAN = ''.join(IBAN.split())
     print(IBAN, '- ', end='')
 
-    checksum = IBAN[:2]
-    if checksum.isalpha():
-        country_code = ''.join(str(letter_dic.get(x)) for x in list(IBAN[:2]))
+    prefix = IBAN[:2].upper()
+    if prefix.isalpha():
+
+        if prefix not in country_dic.keys():
+            return f'Error no such country code {prefix}'
+
+        goodlen = country_dic.get(prefix)[0]
+        if len(IBAN) != goodlen:
+            return f' Incorrect length {len(IBAN)} for country {prefix} with {goodlen}'
+
+        country_code = ''.join(str(letter_dic.get(x)) for x in list(prefix))
         checksum = IBAN[2:4]
-        acc_num = ''.join(str(letter_dic.get(x,x)) for x in IBAN[4:])
+        acc_num = IBAN[4:]
+        if not acc_num.isdigit():
+            acc_num = ''.join(str(letter_dic.get(x,x)) for x in acc_num)
         IBAN_rev = acc_num + country_code + checksum
         print(IBAN_rev, end='')
         if int(IBAN_rev) % 97 == 1:
@@ -78,8 +89,8 @@ def iban_check(IBAN:int):
 
 
 if __name__ == '__main__':
-    print(iban_check('PL 77 1600 1462 1891 2670 5005 4475')) #Wrong acc num
+    print(iban_check('PL 77 1600 1462 1891 2670 5005 4475')) #Wrong acc
     print(iban_check('GB 35 MIDL 4025 3432 1446 70'))   #OK
-    print(iban_check('DE 46 1090 2851 0000 0001 4292 2866')) #Wrong cc
-    
-    
+    print(iban_check('DE 46 1090 2851 0000 0001 4292 2866')) #Wrong prefix
+
+
