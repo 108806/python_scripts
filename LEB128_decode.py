@@ -12,7 +12,7 @@ def LEB128_decode(bstr: bytes) -> int:
     15
     b6 e4 ed af a3 cc 67
 
-    # Basic pattern for convertign any base:
+    # Using basic pattern for converting any base:
     0xfb + 0x41 * 128 + 0x00 * 128**2 + 0x00 * 128**3 + 0x00 * 128**4 + 0x00 * 128**5 + 0x00
     0xe4 + 0x95 * 128 + 0xb7 * 128**2 + 0x05 * 128**3 + 0x00 * 128**4 + 0x00 * 128**5 + 0x00
     0xf1 + 0x7b * 128 + 0x00 * 128**2 + 0x00 * 128**3 + 0x00 * 128**4 + 0x00 * 128**5 + 0x00
