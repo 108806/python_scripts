@@ -52,7 +52,7 @@ def runAsAdmin(cmdLine=None, wait=True):
     # print "Running", cmd, params
 
     # ShellExecute() doesn't seem to allow us to fetch the PID or handle
-    # of the process, so we can't get anything useful from it. Therefore
+    # of the process, so we can't get anything useful from it. Therefore,
     # the more complex ShellExecuteEx() must be used.
 
     # procHandle = win32api.ShellExecute(0, lpVerb, cmd, params, cmdDir, showCmd)
