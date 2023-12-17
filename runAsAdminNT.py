@@ -1,10 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: utf-8; mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 
 # (C) COPYRIGHT © Preston Landers 2010
 # Released under the same license as Python 2.6.5
 
+#TODO: python3
 
 import sys, os, traceback, types
 

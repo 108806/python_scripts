@@ -60,13 +60,12 @@ def LEB128_decode(bstr: bytes) -> int:
 x = b"\xfb\x41\xe4\x95\xb7\x05\xf1\x7b\x15\xb6\xe4\xed\xaf\xa3\xcc\x67"
 print(LEB128_decode(x))
 
-
-#	sanity check:
+# sanity check:
 someleb128 = ("00000110", "11111100", "10100110")[::-1]
 print(
     "\nCorrect result:",  # 114214
     sum(
-        int(someleb128[y][1:], 2) * (128**y if y > 0 else 1)
+        int(someleb128[y][1:], 2) * (128 ** y if y > 0 else 1)
         for y in range(len(someleb128))
     ),
 )
@@ -75,4 +74,3 @@ L128hex = "".join(
 )
 L128bytes = bytes.fromhex(L128hex)
 print(LEB128_decode(L128bytes))  # 455619637779483
-

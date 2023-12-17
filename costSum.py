@@ -5,8 +5,8 @@ Simple cost counter,
 
 import itertools
 from time import sleep
-__author___ = "ansgar.snow"
 
+__author___ = "ansgar.snow"
 
 dokument = input("Give me the file with the prices at the end of the lines\n")
 
@@ -15,7 +15,6 @@ lista_ = [x for x in open(dokument)]
 for x in lista_:
     v.append(x.split()[-1:])
 
-res = list(map(int, (itertools.chain.from_iterable(v))))
-print(sum(res))
-sleep(10)
+res = list(map(int, (itertools.chain.from_iterable(v))))  # No need for itertools, but I was a noob 6 years ago.
+print(sum(res))  # Works though
 exit()
