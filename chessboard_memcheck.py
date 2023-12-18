@@ -32,7 +32,7 @@ class Chessboard:
             # INIT STOCKFISH:
             board = chess.Board()
             stockfish_path = (
-                "D:\stockfish_15.1_win_x64_avx2\stockfish-windows-2022-x86-64-avx2.exe"
+                r"D:\stockfish_15.1_win_x64_avx2\stockfish-windows-2022-x86-64-avx2.exe"
             )
             self.engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
 
@@ -121,7 +121,7 @@ class Chessboard:
             missed = [m for m in moves if m not in answer]
             if missed:
                 print(f"Missed {len(missed)} moves were:", moves)
-        print(f"The end. Your score is {pts} / {ptsmax} - {pts*100/ptsmax:.2F}%")
+        print(f"The end. Your score is {pts} / {ptsmax} - {pts * 100 / ptsmax:.2F}%")
 
 
 B = Chessboard()
