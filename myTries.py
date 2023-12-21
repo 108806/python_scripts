@@ -1,7 +1,7 @@
 import os
 import sys
 
-print(os.getcwd(), sys.executable)
+print(os.getcwd(), sys.executable, hex(id(globals())))
 
 
 class MyTrie:
@@ -15,7 +15,7 @@ class MyTrie:
         self.root = self.Node()
         self.nodes = 0
 
-    def insert(self, string: str|list):
+    def insert(self, string: str | list):
         if isinstance(string, str):
             curr, created, existing = self.root, 0, 0
             for char in string:
@@ -33,8 +33,21 @@ class MyTrie:
             for s in string:
                 self.insert(s)
 
+    def contains(self, string: str | list) -> bool:
+        if isinstance(string, str):
+            curr = self.root
+            for character in string:
+                if character in curr.dict:
+                    curr = curr.dict[character]
+                else:
+                    return False
+            return True
+        else:
+            for s in string:
+                self.contains(s)
+
 
 if __name__ == '__main__':
     trie = MyTrie()
     trie.insert(['deadbeef', 'test', 'deadsummer'])
-    print(trie)
+    print(trie, trie.contains('best'))
