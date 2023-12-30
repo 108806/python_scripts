@@ -8,12 +8,13 @@ class MyTrie:
     class Node:
         def __init__(self):
             self.terminal = False
-            self.idx = 0
+            self.lvl = 0
             self.dict = {}
 
     def __init__(self):
         self.root = self.Node()
         self.nodes = 0
+        self.longest_node = self.root
 
     def insert(self, string: str | list):
         if isinstance(string, str):
@@ -25,7 +26,7 @@ class MyTrie:
                 else:
                     existing += 1
                 curr = curr.dict[char]
-                curr.idx += 1
+                curr.lvl += 1
             curr.terminal = True
             self.nodes += created + existing
             return f'Inserted successfully {created + existing}, nodes created:{created}, nodes existing:{existing}'
@@ -44,10 +45,30 @@ class MyTrie:
             return True
         else:
             for s in string:
+                assert isinstance(s, str), f"ERR: s -> {s} is not a str"
                 self.contains(s)
+
+    def is_longest(self, node: Node):
+        if node.lvl > self.longest_node.lvl:
+            self.longest_node = node
+
+    def get_longest(self, node=''):
+        if not node:
+            node = self.longest_node
+        for key in node.dict:
+            self.is_longest(node.dict[key])
+            self.get_longest(node.dict[key])
+        return self.longest_node
+
+    def has_others(self, node: Node) -> bool:
+        if len(node) > 1:
+            return True
+        return False
 
 
 if __name__ == '__main__':
     trie = MyTrie()
     trie.insert(['deadbeef', 'test', 'deadsummer'])
     print(trie, trie.contains('best'))
+    longest = trie.get_longest()
+    print(longest.lvl, longest.dict)
