@@ -25,8 +25,8 @@ class MyTrie:
                     created += 1
                 else:
                     existing += 1
+                curr.dict[char].lvl = curr.lvl +1
                 curr = curr.dict[char]
-                curr.lvl += 1
             curr.terminal = True
             self.nodes += created + existing
             return f'Inserted successfully {created + existing}, nodes created:{created}, nodes existing:{existing}'
@@ -51,13 +51,18 @@ class MyTrie:
     def is_longest(self, node: Node):
         if node.lvl > self.longest_node.lvl:
             self.longest_node = node
+            return True
+        return False
 
-    def get_longest(self, node=''):
+    def set_longest(self, node=''):
         if not node:
             node = self.longest_node
         for key in node.dict:
             self.is_longest(node.dict[key])
-            self.get_longest(node.dict[key])
+            self.set_longest(node.dict[key])
+
+    def get_longest(self):
+        self.set_longest()
         return self.longest_node
 
     def has_others(self, node: Node) -> bool:
