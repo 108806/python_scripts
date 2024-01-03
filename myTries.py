@@ -10,6 +10,16 @@ class MyTrie:
             self.terminal = False
             self.lvl = 0
             self.dict = {}
+            self.root = None
+
+        def word(self):
+            if self.dict:
+                ret = list(self.dict.keys())[0]
+                curr = self
+                while curr.root:
+                    curr = curr.root
+                    ret += list(curr.dict.keys)[0]
+                return ''.join(ret)
 
     def __init__(self):
         self.root = self.Node()
@@ -18,6 +28,7 @@ class MyTrie:
 
     def insert(self, string: str | list):
         if isinstance(string, str):
+            print('Inserting:', string, len(string))
             curr, created, existing = self.root, 0, 0
             for char in string:
                 if char not in curr.dict:
@@ -26,6 +37,7 @@ class MyTrie:
                 else:
                     existing += 1
                 curr.dict[char].lvl = curr.lvl +1
+                curr.dict[char].root = curr
                 curr = curr.dict[char]
             curr.terminal = True
             self.nodes += created + existing
@@ -71,9 +83,13 @@ class MyTrie:
         return False
 
 
+
+
+
+
 if __name__ == '__main__':
     trie = MyTrie()
     trie.insert(['deadbeef', 'test', 'deadsummer'])
     print(trie, trie.contains('best'))
     longest = trie.get_longest()
-    print(longest.lvl, longest.dict)
+    print(longest.lvl, longest.dict, longest, longest.root.dict, longest.word())
